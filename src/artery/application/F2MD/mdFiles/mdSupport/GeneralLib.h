@@ -26,12 +26,15 @@ using namespace std;
 class GeneralLib {
 public:
     GeneralLib();
+    GeneralLib(unsigned long seed);
 
     double GaussianRandomDouble(double mean, double stddev);
 
     double RandomDouble(double fMin, double fMax);
     int RandomInt(int min, int max);
-    
+
+private:
+    boost::random::mt19937 rng;
 };
 
 #endif

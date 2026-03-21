@@ -883,8 +883,11 @@ std::string F2MD_CPService::printTXCpmtoJson(const vanetza::asn1::Cpm& msg) {
     jw.addTagToElement("cpm", tempStr);
     
     auto mbtype = mF2MDFacility.getMbType();
+    if (mbtype == mbTypes::LocalAttacker && simTime().dbl() < CPparams.START_CPM_ATTACK) {
+        mbtype = mbTypes::Genuine;
+    }
     tempStr = jw.getSimpleTag("misbehaviorType",mbTypes::mbNames[mbtype],false);
-    jw.addTagToElement("cpm", tempStr);   
+    jw.addTagToElement("cpm", tempStr); 
     
     tempStr = jw.getSimpleTag("tx_timestamp",SIMTIME_STR(simTime()),true);
     jw.addTagToElement("cpm", tempStr);

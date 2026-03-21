@@ -44,7 +44,6 @@ void F2MD_CPFacility::initialize()
     mCpmChecks = CpmChecks(params);
 
     // Initialize globle parameters
-    LastCPLocalAttackIndex = -1;
     memset(accusedNodesCP,0,sizeof(accusedNodesCP));
     accusedNodesLengthCP = 0;
 
