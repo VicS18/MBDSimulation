@@ -110,22 +110,11 @@ void F2MD_CPFacility::initialize()
     //if (myMdType == mbTypes::Genuine)
    //{ 
         //string outjsonfilecpmReport_name = "output/ATTACK/CPM/Report/logjson_cpm_report";
-        string outjsonfilecpmReport_name = "output/ATTACK/CPM/Report/";
-        outjsonfilecpmReport_name.append(cpAttackTypes::AttackNames[params->CP_LOCAL_ATTACK_TYPE]);
-        if(params->KeepSameID == true){
-            outjsonfilecpmReport_name.append("_KeepSameID");
-        }
-         //mkdir savePath
-        struct stat info;
-        if ((stat(outjsonfilecpmReport_name.c_str(), &info) != 0) || !(info.st_mode & S_IFDIR)) {
-            mkdir(outjsonfilecpmReport_name.c_str(), 0777);
-        }
- 
-        outjsonfilecpmReport_name.append ("/logjson_cpm_report_");
-
+        string outjsonfilecpmReport_name = "output/reports/json/logjson_cpm_report_";
         outjsonfilecpmReport_name.append(str_id);
         //outjsonfilecpmReport_name.append (to_string(params->CP_LOCAL_ATTACK_TYPE));
         outjsonfilecpmReport_name.append (suffix);
+        system("mkdir -p output/reports/json");
         outputjsonfilecpmReport.open(outjsonfilecpmReport_name,ios::out);
         jwritecpmReport.openJsonElementList("CPM_REPORT");
    //} 

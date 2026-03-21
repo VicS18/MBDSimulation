@@ -102,62 +102,35 @@ void F2MD_CPService::initialize()
     if(CPparams.KeepSameID == true){
         outlogfile_name.append("_KeepSameID");
     }
-    struct stat info_log;
-    if ((stat(outlogfile_name.c_str(), &info_log) != 0) || !(info_log.st_mode & S_IFDIR)) {
-        mkdir(outlogfile_name.c_str(), 0777);
-    }
-    outlogfile_name.append("/log_vehicle_");    
+    system(("mkdir -p " + outlogfile_name).c_str());
+    outlogfile_name.append("/log_vehicle_");
     outlogfile_name.append(str_id);
     outputfilelog.open(outlogfile_name,ios::out);
 
     // For Json
     string suffix = ".json";
 
-    string outjsonfilecpm_name = "output/GENUINE/CPM/RX/";
-    outjsonfilecpm_name.append(cpAttackTypes::AttackNames[CPparams.CP_LOCAL_ATTACK_TYPE]);
-    if(CPparams.KeepSameID == true){
-        outjsonfilecpm_name.append("_KeepSameID");
-    }
-    struct stat info_rx;
-    if ((stat(outjsonfilecpm_name.c_str(), &info_rx) != 0) || !(info_rx.st_mode & S_IFDIR)) {
-        mkdir(outjsonfilecpm_name.c_str(), 0777);
-    }
-    outjsonfilecpm_name.append("/logjson_cpm_rx");
+    string outjsonfilecpm_name = "output/rx/json/logjson_cpm_rx";
     outjsonfilecpm_name.append(str_id);
     outjsonfilecpm_name.append (suffix);
+    system("mkdir -p output/rx/json");
     outputjsonfilecpm.open(outjsonfilecpm_name,ios::out);
     jwritecpmRX.openJsonElementList("CPM_RX");
 
 
-    string outjsonfilecpmEmit_name = "output/GENUINE/CPM/TX/";
-    outjsonfilecpmEmit_name.append(cpAttackTypes::AttackNames[CPparams.CP_LOCAL_ATTACK_TYPE]);
-    if(CPparams.KeepSameID == true){
-        outjsonfilecpmEmit_name.append("_KeepSameID");
-    }
-    struct stat info_tx;
-    if ((stat(outjsonfilecpmEmit_name.c_str(), &info_tx) != 0) || !(info_tx.st_mode & S_IFDIR)) {
-        mkdir(outjsonfilecpmEmit_name.c_str(), 0777);
-    }
-    outjsonfilecpmEmit_name.append("/logjson_cpm_tx");
+    string outjsonfilecpmEmit_name = "output/tx/json/logjson_cpm_tx";
     outjsonfilecpmEmit_name.append(str_id);
     outjsonfilecpmEmit_name.append (suffix);
+    system("mkdir -p output/tx/json");
     outputjsonfilecpmEmit.open(outjsonfilecpmEmit_name,ios::out);
     jwritecpmTX.openJsonElementList("CPM_TX");
 
 
     // Ground Truth
-    string outlemjsonfile_name = "output/GENUINE/LP/";
-    outlemjsonfile_name.append(cpAttackTypes::AttackNames[CPparams.CP_LOCAL_ATTACK_TYPE]);
-    if(CPparams.KeepSameID == true){
-        outlemjsonfile_name.append("_KeepSameID");
-    }
-    struct stat info_lp;
-    if ((stat(outlemjsonfile_name.c_str(), &info_lp) != 0) || !(info_lp.st_mode & S_IFDIR)) {
-        mkdir(outlemjsonfile_name.c_str(), 0777);
-    }
-    outlemjsonfile_name.append("/logjson_lp");
+    string outlemjsonfile_name = "output/lp/json/logjson_lp";
     outlemjsonfile_name.append(str_id);
     outlemjsonfile_name.append (suffix);
+    system("mkdir -p output/lp/json");
     outputjsonfilelem.open(outlemjsonfile_name,ios::out);
     jwritelem.openJsonElementList("LP");
 }
